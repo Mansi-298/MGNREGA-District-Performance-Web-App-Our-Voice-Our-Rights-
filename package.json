@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "echo 'skipping build step'",
-    "start": "node server.js",
+    "start": "node backend/server.js",
     "dev": "tsx watch server/index.ts --tsconfig tsconfig.json",
     "check": "tsc",
     "db:push": "drizzle-kit push"
