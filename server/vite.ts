@@ -20,8 +20,16 @@ export async function setupVite(app: Express, server: Server) {
 export function serveStatic(app: Express) {
   const clientDistPath = path.resolve(import.meta.dirname, '..', 'dist', 'public');
   
-  // Serve static files from the built frontend
-  app.use(express.static(clientDistPath));
+  // Serve static files with proper MIME types
+  app.use(express.static(clientDistPath, {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css');
+      } else if (filePath.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+      }
+    }
+  }));
   
   // Catch-all handler: send back React's index.html file for any non-API routes
   app.get('*', (req, res) => {
