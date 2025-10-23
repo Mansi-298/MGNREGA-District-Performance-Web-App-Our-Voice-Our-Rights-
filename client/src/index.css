@@ -14,7 +14,7 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  --background: 0 0% 98%;
+  --background: 210 20% 96%;
 
   --foreground: 220 30% 15%;
 
@@ -25,6 +25,9 @@
   --card-foreground: 220 30% 15%;
 
   --card-border: 220 15% 92%;
+  
+  --saffron: 25 85% 55%;
+  --india-green: 140 60% 35%;
 
   --sidebar: 210 20% 96%;
 
@@ -59,6 +62,9 @@
   --muted: 210 12% 94%;
 
   --muted-foreground: 220 15% 45%;
+  
+  --success: 140 60% 40%;
+  --warning: 40 95% 50%;
 
   --accent: 210 18% 92%;
 

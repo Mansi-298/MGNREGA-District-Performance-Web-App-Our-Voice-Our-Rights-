@@ -1,38 +1,30 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { type InsertPerformance, type Performance } from "@shared/schema";
+import type { MGNREGAMetrics } from "@shared/schema";
 
-// modify the interface with any CRUD methods
-// you might need
-
-export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+// In-memory cache storage interface
+export interface ICacheStorage {
+  getPerformanceData(district: string): Promise<{ data: MGNREGAMetrics; lastUpdated: Date } | undefined>;
+  setPerformanceData(district: string, data: MGNREGAMetrics): Promise<void>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
+// In-memory implementation
+export class MemCacheStorage implements ICacheStorage {
+  private cache: Map<string, { data: MGNREGAMetrics; lastUpdated: Date }>;
 
   constructor() {
-    this.users = new Map();
+    this.cache = new Map();
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getPerformanceData(district: string): Promise<{ data: MGNREGAMetrics; lastUpdated: Date } | undefined> {
+    return this.cache.get(district);
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async setPerformanceData(district: string, data: MGNREGAMetrics): Promise<void> {
+    this.cache.set(district, {
+      data,
+      lastUpdated: new Date(),
+    });
   }
 }
 
-export const storage = new MemStorage();
+export const memCacheStorage = new MemCacheStorage();

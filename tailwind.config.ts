@@ -51,6 +51,9 @@ export default {
           foreground: "hsl(var(--destructive-foreground) / <alpha-value>)",
           border: "var(--destructive-border)",
         },
+        // Indian tricolor custom colors
+        saffron: "hsl(var(--saffron) / <alpha-value>)",
+        "india-green": "hsl(var(--india-green) / <alpha-value>)",
         ring: "hsl(var(--ring) / <alpha-value>)",
         chart: {
           "1": "hsl(var(--chart-1) / <alpha-value>)",
@@ -83,9 +86,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)"],
-        serif: ["var(--font-serif)"],
-        mono: ["var(--font-mono)"],
+        sans: ["Inter", "Noto Sans Devanagari", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        serif: ["Georgia", "serif"],
+        mono: ["Menlo", "monospace"],
       },
       keyframes: {
         "accordion-down": {
@@ -96,10 +99,15 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.3s ease-out",
       },
     },
   },
