@@ -16,6 +16,7 @@
    - **Start Command:** `npm start`
    - **Environment:** Node.js
    - **Port:** 3000 (or leave default)
+   - **Node Version:** 18+ (recommended)
 
 4. **Environment Variables (Optional):**
    - `NODE_ENV=production`
