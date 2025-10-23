@@ -1,8 +1,18 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors({
+  origin: [
+    'http://localhost:5173', // Local development
+    'https://your-frontend-name.onrender.com', // Production frontend (update after deployment)
+    /\.onrender\.com$/ // Allow all Render subdomains during testing
+  ],
+  credentials: true
+}));
 
 declare module 'http' {
   interface IncomingMessage {
@@ -71,7 +81,7 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '3000', 10);
-  server.listen(port, "127.0.0.1", () => {
+  server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
   });
 })();
