@@ -1,17 +1,8 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import cors from 'cors';
+import { setupVite, serveStatic, log } from "./vite.js";
 
 const app = express();
-
-app.use(cors({
-  origin: [
-    'http://localhost:5173', // Local development
-    'https://your-frontend-name.onrender.com', // Will update after frontend deployment
-    /\.onrender\.com$/ // Allow all Render subdomains during setup
-  ],
-  credentials: true
-}));
 
 declare module 'http' {
   interface IncomingMessage {
@@ -65,14 +56,25 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // Only setup Vite in development
+  // importantly only setup vite in development and after
+  // setting up all the other routes so the catch-all route
+  // doesn't interfere with the other routes
   if (app.get("env") === "development") {
-   
+    await setupVite(app, server);
+  } else {
+    serveStatic(app);
   }
-  // Remove serveStatic for production - frontend is separate
 
-  const port = parseInt(process.env.PORT || '3000', 10);
-  server.listen(port, "0.0.0.0", () => {
-   
+  // ALWAYS serve the app on the port specified in the environment variable PORT
+  // Other ports are firewalled. Default to 5000 if not specified.
+  // this serves both the API and the client.
+  // It is the only port that is not firewalled.
+  const port = parseInt(process.env.PORT || '5000', 10);
+  server.listen({
+    port,
+    host: "0.0.0.0",
+    reusePort: true,
+  }, () => {
+    log(`serving on port ${port}`);
   });
 })();
