@@ -1,6 +1,5 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
 import cors from 'cors';
 
 const app = express();
@@ -49,7 +48,6 @@ app.use((req, res, next) => {
         logLine = logLine.slice(0, 79) + "…";
       }
 
-      log(logLine);
     }
   });
 
@@ -69,12 +67,12 @@ app.use((req, res, next) => {
 
   // Only setup Vite in development
   if (app.get("env") === "development") {
-    await setupVite(app, server);
+   
   }
   // Remove serveStatic for production - frontend is separate
 
   const port = parseInt(process.env.PORT || '3000', 10);
   server.listen(port, "0.0.0.0", () => {
-    log(`🚀 Backend server running on port ${port}`);
+   
   });
 })();

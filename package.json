@@ -4,9 +4,8 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -p tsconfig.server.json",
-    "build:client": "cd client && npm install && vite build",
-    "start": "node dist/server/index.js",
+    "build": "echo 'skipping build step'",
+    "start": "node server.js",
     "dev": "tsx watch server/index.ts --tsconfig tsconfig.json",
     "check": "tsc",
     "db:push": "drizzle-kit push"
@@ -82,9 +81,6 @@
     "zod-validation-error": "^3.4.0"
   },
   "devDependencies": {
-    "@replit/vite-plugin-cartographer": "^0.3.1",
-    "@replit/vite-plugin-dev-banner": "^0.1.1",
-    "@replit/vite-plugin-runtime-error-modal": "^0.0.3",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.1.3",
     "@types/connect-pg-simple": "^7.0.3",
