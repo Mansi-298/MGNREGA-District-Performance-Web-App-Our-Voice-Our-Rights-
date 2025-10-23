@@ -49,9 +49,10 @@
 ## 🔧 Build Process
 
 The project uses:
-- **Frontend:** Vite build (React app)
+- **Frontend:** Vite build (React app) - production-safe config
 - **Backend:** ESBuild (Express server)
 - **Output:** Combined in `dist/` directory
+- **Dependencies:** All build tools moved to main dependencies
 
 ## 📁 Project Structure After Build
 
